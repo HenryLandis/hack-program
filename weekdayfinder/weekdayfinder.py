@@ -74,7 +74,7 @@ class WeekdayFinder:
 
     def wkday_world(self):
         """
-        Determines the day of the week in all UTC offset zones, saves results to dataframe and prints it.
+        Determines the day of the week in selected timezones, saves results to dataframe and prints it.
         """
         for idx in self.data.index:
             tz = utc.astimezone(pytz.timezone("{}".format(self.data.loc[idx, "timezone"])))
@@ -84,7 +84,7 @@ class WeekdayFinder:
 
 def tzlist():
     """
-    Returns a list of timezones, which can be used as arguments in the wkday function of the WeekdayFinder class.
+    Returns a list of timezones, which can be used as arguments for tzinfo in the wkday function of the WeekdayFinder class.
     """
     for tz in pytz.all_timezones:
         print(tz)

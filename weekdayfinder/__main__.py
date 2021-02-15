@@ -14,7 +14,7 @@ def parse_command_line():
     # Init parser and add arguments.
     parser = argparse.ArgumentParser()
 
-    # Add long arguments.
+    # Add long arguments.  "nargs" sets up flexible param entry, with "today" as the default.
     parser.add_argument(
         "-a", "--arg",
         help = "Find weekday (default is current day).",
@@ -22,7 +22,6 @@ def parse_command_line():
         const = "today"
     )
 
-    # "nargs" sets up flexible param entry, with "today" as the default.
     parser.add_argument(
         "--tzinfo",
         help = "Specify timezone (default is UTC).",
