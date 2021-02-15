@@ -85,7 +85,7 @@ def main():
                 print("Invalid argument.")
 
     if args.tzinfo and not args.arg:
-        print("Please specify a day to find for this timezone.")
+        print("Please specify a day with -a or --arg.")
 
     if args.wkday_world:
         wkf.wkday_world()
