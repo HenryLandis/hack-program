@@ -5,7 +5,7 @@ Command line interface for weekdayfinder.
 """
 
 import argparse
-from weekdayfinder import wkday, info
+from weekdayfinder import WeekdayFinder, tzlist, info
 
 
 def parse_command_line():
@@ -16,35 +16,39 @@ def parse_command_line():
 
     # Add long arguments.
     parser.add_argument(
-        "--today",
-        help = "Prints current weekday.",
-        action = "store_true"
-        )
+        "-a", "--arg",
+        help = "Find weekday (default is current day).",
+        nargs = "?",
+        const = "today"
+    )
+
+    # "nargs" sets up flexible param entry, with "today" as the default.
+    parser.add_argument(
+        "--tzinfo",
+        help = "Specify timezone (default is UTC).",
+        nargs = "?",
+        const = None
+    )
 
     parser.add_argument(
-        "--tomorrow",
-        help = "Prints upcoming weekday.",
+        "--tzlist",
+        help = "Show list of timezones.",
         action = "store_true"
-        )
+    )
 
     parser.add_argument(
-        "--yesterday",
-        help = "Prints previous weekday.",
+        "-ww", "--wkday_world",
+        help = "Show weekdays around the world.",
         action = "store_true"
-        )
+    )
 
     parser.add_argument(
-        "--info",
+        "-p", "--package",
         help = "Returns info about package.",
-        action ="store_true")
+        action = "store_true")
 
     # Parse arguments.
     args = parser.parse_args()
-
-    # Check that only one argument was entered.
-    if sum([args.today, args.tomorrow, args.yesterday, args.info]) > 1:
-        raise SystemExit(
-            "Enter only one argument at a time.")
     return args
 
 
@@ -56,20 +60,47 @@ def main():
     # Get arguments from command line as a dict-like object.
     args = parse_command_line()
 
-    # Pass argument to call weekdayfinder function.
-    if args.today:
-        wkday("today")
-    elif args.tomorrow:
-        wkday('tomorrow')
-    elif args.yesterday:
-        wkday('yesterday')
-    elif args.info:
+    # An instance of the class object must be initialized (as opposed to calling the class directly).
+    wkf = WeekdayFinder()
+
+    # Pass arguments to call functions.
+    if args.arg:
+        if args.tzinfo is not None:
+            if args.arg == "today":
+                wkf.wkday("today", tzinfo = args.tzinfo)
+            elif args.arg == "tomorrow":
+                wkf.wkday("tomorrow", tzinfo = args.tzinfo)
+            elif args.arg == "yesterday":
+                wkf.wkday("yesterday", tzinfo = args.tzinfo)
+            else:
+                print("Invalid argument.")
+        else:
+            if args.arg == "today":
+                wkf.wkday("today")
+            elif args.arg == "tomorrow":
+                wkf.wkday("tomorrow")
+            elif args.arg == "yesterday":
+                wkf.wkday("yesterday")
+            else:
+                print("Invalid argument.")
+
+    if args.tzinfo and not args.arg:
+        print("Please specify a day to find for this timezone.")
+
+    if args.wkday_world:
+        wkf.wkday_world()
+
+    if args.tzlist:
+        tzlist()
+    
+    if args.package:
         info()
 
 
 if __name__ == "__main__":
-    wkday("today")
-    wkday("tomorrow")
-    wkday("yesterday")
+    wkf = WeekdayFinder()
+    wkf.wkday("today")
+    wkf.wkday("tomorrow")
+    wkf.wkday("yesterday")
+    wkf.wkday_world()
     info()
-    wkday("potato")

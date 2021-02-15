@@ -4,6 +4,7 @@
 weekdayfinder program for determninig current, upcoming and previous day of week.
 """
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
-from weekdayfinder.weekdayfinder import wkday, info
+# Import class (with its constituent functions), plus standalone functions.
+from weekdayfinder.weekdayfinder import WeekdayFinder, tzlist, info

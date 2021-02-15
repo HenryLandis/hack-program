@@ -9,11 +9,13 @@ from setuptools import setup
 # Build setup.
 setup(
     name="weekdayfinder",
-    version="0.0.1",
+    version="0.0.2",
     author="Henry Landis",
     author_email="hnl2109@columbia.edu",
     description="A packages that determines the day of the week for the current, upcoming and previous day.",
     entry_points={
-        "console_scripts": ["wkday = weekdayfinder.__main__:main"]
+        "console_scripts": [
+            "wkf = weekdayfinder.__main__:main", # command = package:file:function
+            ]
     },
 )
