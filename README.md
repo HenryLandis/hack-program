@@ -1,6 +1,6 @@
 # weekdayfinder
 
-`weekdayfinder` determines the day of the week for the current, upcoming and previous day.
+`weekdayfinder` determines the day of the week for the current, upcoming and previous day.  You can additionally specify a preferred timezone, get a list of timezones from the [tz database](https://en.wikipedia.org/wiki/Tz_database) (also known as the Olson database), or view a table of current weekdays in selected timezones around the world.
 
 
 ## CLI instructions
@@ -23,4 +23,6 @@ optional arguments:
   
   Valid inputs for ``-a`` are "today", "tomorrow" or "yesterday".
   
-  Specifying ``--tzinfo`` without an input for ``-a`` will return a request to provide this input.
+  Specifying ``--tzinfo`` without ``-a`` will return a request to provide ``-a.``
+  
+  Use ``--tzlist`` to view a list of timezone options.
